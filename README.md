@@ -25,8 +25,8 @@ Todo el contenido (textos, contacto, experiencia, formación, fotos) está en
 - **Video de portada**: copiar en `public/videos/hero.mp4` y poner
   `hero.video: 'videos/hero.mp4'`. Recomendado: MP4 H.264, sin audio, < 4 MB.
   Agregar también `hero.poster` (primer fotograma).
-- **Imagen para compartir (Open Graph)**: `public/og/og-image.png` (1200×630).
-  La actual es provisoria y se regenera con `node scripts/generate-og.mjs`.
+- **Imagen para compartir (Open Graph)**: `public/og/og-image.jpg` (1200×630), generada desde la foto `00.jpeg`.
+  Se regenera con `node scripts/generate-og.mjs`.
 
 Los placeholders de fotos solo se ven con `npm run dev`; en producción se ocultan.
 

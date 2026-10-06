@@ -24,6 +24,7 @@ const { photo, class: className, sizes = '(min-width: 1024px) 50vw, 100vw', widt
       loading={loading}
       decoding="async"
       class:list={['h-full w-full object-cover', className]}
+      style={photo.position ? `object-position: ${photo.position}` : undefined}
     />
   ) : (
     showPlaceholders && <Placeholder label={photo.placeholder} class={className} />

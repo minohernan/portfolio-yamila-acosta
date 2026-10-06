@@ -15,6 +15,8 @@ const labels: Record<GalleryCategory, string> = {
 // En producción solo se muestran fotos reales; si no hay ninguna, la sección no se renderiza.
 const items = profile.gallery.filter(isPhotoVisible);
 const categories = (Object.keys(labels) as GalleryCategory[]).filter((c) => items.some((i) => i.category === c));
+// Con pocas fotos se usa una fila uniforme; con más, el mosaico.
+const compact = items.length <= 3;
 ---
 
 {
@@ -36,13 +38,24 @@ const categories = (Object.keys(labels) as GalleryCategory[]).filter((c) => item
           </div>
         )}
 
-        <ul class="mt-10 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4" id="gallery-grid">
+        <ul
+          class:list={['mt-10 grid gap-2 sm:gap-4', compact ? 'grid-cols-3' : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4']}
+          id="gallery-grid"
+        >
           {items.map((item, i) => (
             <li
-              class:list={['reveal overflow-hidden rounded-2xl shadow-softer', i % 5 === 0 ? 'row-span-2 aspect-[3/4] h-full' : 'aspect-square']}
+              class:list={[
+                'reveal overflow-hidden rounded-2xl shadow-softer',
+                compact ? 'aspect-[3/4]' : i % 5 === 0 ? 'row-span-2 aspect-[3/4] h-full' : 'aspect-square',
+              ]}
+              style={`--delay:${(i % 4) * 90}ms`}
               data-category={item.category}
             >
-              <Photo photo={item} sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw" widths={[300, 600, 900]} />
+              <Photo
+                photo={item}
+                sizes={compact ? '(min-width: 1152px) 370px, 33vw' : '(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw'}
+                widths={[300, 600, 900]}
+              />
             </li>
           ))}
         </ul>

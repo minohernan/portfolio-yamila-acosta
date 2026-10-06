@@ -6,6 +6,8 @@ export type Photo = {
   alt: string;
   /** Texto que identifica el placeholder durante el desarrollo. */
   placeholder?: string;
+  /** CSS object-position para encuadrar la foto sin cortar caras (ej. '50% 20%'). */
+  position?: string;
 };
 
 export type Highlight = { value: string; label: string };
@@ -64,7 +66,7 @@ export type Profile = {
   };
   values: { intro: string; items: Value[] };
   specialties: Specialty[];
-  experience: { summary: string; items: ExperienceItem[] };
+  experience: { summary: string; photo?: Photo; items: ExperienceItem[] };
   education: EducationItem[];
   sports: {
     intro: string;

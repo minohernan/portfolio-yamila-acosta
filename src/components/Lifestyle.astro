@@ -61,11 +61,20 @@ const commPhotos = communication.photos.filter(isPhotoVisible);
       {
         commPhotos.length > 0 && (
           <div class="reveal order-2 grid grid-cols-2 gap-3 sm:gap-4 lg:order-1">
-            {commPhotos.map((photo, i) => (
-              <div class:list={['aspect-[3/4] overflow-hidden rounded-3xl shadow-soft', i % 2 === 1 && 'translate-y-8']}>
-                <Photo photo={photo} sizes="(min-width: 1024px) 25vw, 45vw" />
+            {commPhotos.length === 1 ? (
+              <div class="relative col-span-2 mx-auto w-full max-w-md">
+                <div aria-hidden="true" class="absolute -right-4 -bottom-4 h-2/3 w-2/3 rounded-[2rem] bg-sea-200/60" />
+                <div class="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-soft">
+                  <Photo photo={commPhotos[0]} sizes="(min-width: 1024px) 40vw, 90vw" />
+                </div>
               </div>
-            ))}
+            ) : (
+              commPhotos.map((photo, i) => (
+                <div class:list={['aspect-[3/4] overflow-hidden rounded-3xl shadow-soft', i % 2 === 1 && 'translate-y-8']}>
+                  <Photo photo={photo} sizes="(min-width: 1024px) 25vw, 45vw" />
+                </div>
+              ))
+            )}
           </div>
         )
       }

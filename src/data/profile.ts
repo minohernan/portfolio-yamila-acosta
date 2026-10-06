@@ -17,9 +17,17 @@
  */
 import type { Profile } from '../types/profile';
 
-// TODO: importar aquí las fotos reales cuando estén disponibles, por ejemplo:
-// import heroPoster from '../assets/images/hero/poster.jpg';
-// import fotoPerfil from '../assets/images/profile/yamila.jpg';
+// Fotos reales (src/assets/images/yamila/)
+import fotoPerfil from '../assets/images/yamila/00.jpeg';
+import fotoProduccion from '../assets/images/yamila/01.jpeg';
+import fotoProfesional from '../assets/images/yamila/02.jpeg';
+import fotoRunning from '../assets/images/yamila/running00.jpeg';
+import fotoRunning2 from '../assets/images/yamila/running02.jpeg';
+import fotoEquitacion from '../assets/images/yamila/equitacion00.jpeg';
+import fotoWindsurf from '../assets/images/yamila/windsurf00.jpeg';
+import fotoNatacion from '../assets/images/yamila/windsurf01.jpeg';
+import fotoWindsurf2 from '../assets/images/yamila/windsurf02.jpeg';
+// TODO: poster del video → import heroPoster from '../assets/images/hero/poster.jpg';
 
 export const profile: Profile = {
   name: 'Yamila Giselle Acosta',
@@ -34,9 +42,8 @@ export const profile: Profile = {
     title: 'Yamila Giselle Acosta | Abogada',
     description:
       'Portfolio profesional de Yamila Giselle Acosta, abogada de Posadas, Misiones, con trayectoria en Derecho Penal, Derecho Médico y Derecho Civil.',
-    // Imagen provisoria tipográfica (1200×630). Reemplazar por una foto profesional
-    // con el mismo nombre o actualizar esta ruta.
-    ogImage: 'og/og-image.png',
+    // Generada con scripts/generate-og.mjs a partir de 00.jpeg (1200×630).
+    ogImage: 'og/og-image.jpg',
     ogImageAlt: 'Yamila Giselle Acosta, Abogada',
   },
 
@@ -49,9 +56,9 @@ export const profile: Profile = {
 
   about: {
     photo: {
-      src: null,
-      alt: 'Retrato profesional de Yamila Giselle Acosta',
-      placeholder: 'Foto profesional de Yamila',
+      src: fotoPerfil,
+      alt: 'Retrato profesional de Yamila Giselle Acosta, sonriendo, con blazer blanco',
+      position: '50% 20%',
     },
     intro:
       'Soy Yamila Giselle Acosta, de Posadas, Misiones, abogada con más de diez años de trayectoria profesional, máster en Derecho Penal y especialista en Derecho Penal y Derecho Médico.',
@@ -112,6 +119,11 @@ export const profile: Profile = {
 
   experience: {
     summary: 'Más de diez años de trayectoria profesional en el ejercicio del derecho.',
+    photo: {
+      src: fotoProfesional,
+      alt: 'Yamila Giselle Acosta con traje oscuro, sentada frente a un escritorio con documentos',
+      position: '50% 30%',
+    },
     // Agregar experiencias anteriores con el mismo formato.
     // TODO: pedir a Yamila período, cargo, institución y lugar de cada experiencia.
     items: [
@@ -149,9 +161,9 @@ export const profile: Profile = {
     closing:
       'Soy atleta, corredora y nadadora; practico equitación y disfruto de los deportes extremos y náuticos. Además, soy una apasionada del fútbol y del trabajo en equipo. Estas actividades me enseñan a sostener el esfuerzo, adaptarme y afrontar cada desafío con disciplina y perseverancia.',
     photos: [
-      { src: null, alt: 'Yamila corriendo', placeholder: 'Foto: running / atletismo' },
-      { src: null, alt: 'Yamila nadando', placeholder: 'Foto: natación' },
-      { src: null, alt: 'Yamila practicando equitación', placeholder: 'Foto: equitación' },
+      { src: fotoRunning, alt: 'Yamila corriendo una carrera de trail entre la vegetación', position: '50% 35%' },
+      { src: fotoEquitacion, alt: 'Yamila montando a caballo en un picadero', position: '50% 45%' },
+      { src: fotoWindsurf, alt: 'Yamila con traje de neopreno en la playa, junto a equipos de deportes náuticos', position: '50% 75%' },
     ],
   },
 
@@ -161,8 +173,11 @@ export const profile: Profile = {
     closing:
       'Esta faceta me permite expresar mi creatividad, fortalecer mi seguridad y desarrollar mi capacidad para comunicar y conectar con distintos públicos. Es una experiencia que complementa mi perfil profesional y aporta naturalidad a mi trato con las personas.',
     photos: [
-      { src: null, alt: 'Yamila en una producción fotográfica', placeholder: 'Foto: producción fotográfica' },
-      { src: null, alt: 'Yamila en un desfile', placeholder: 'Foto: desfile' },
+      {
+        src: fotoProduccion,
+        alt: 'Perfil de Yamila con blazer claro y accesorios dorados en una producción fotográfica',
+        position: '50% 40%',
+      },
     ],
   },
 
@@ -176,13 +191,14 @@ export const profile: Profile = {
 
   // Galería: agregar fotos reales con su categoría.
   gallery: [
-    { category: 'profesional', src: null, alt: '', placeholder: 'Profesional 1' },
-    { category: 'profesional', src: null, alt: '', placeholder: 'Profesional 2' },
-    { category: 'deporte', src: null, alt: '', placeholder: 'Deporte 1' },
-    { category: 'deporte', src: null, alt: '', placeholder: 'Deporte 2' },
-    { category: 'producciones', src: null, alt: '', placeholder: 'Producciones 1' },
-    { category: 'producciones', src: null, alt: '', placeholder: 'Producciones 2' },
-    { category: 'eventos', src: null, alt: '', placeholder: 'Eventos 1' },
+    {
+      category: 'deporte',
+      src: fotoNatacion,
+      alt: 'Yamila con gorra de natación, preparándose para nadar en aguas abiertas',
+      position: '50% 40%',
+    },
+    { category: 'deporte', src: fotoRunning2, alt: 'Yamila durante una carrera de trail en el monte', position: '50% 25%' },
+    { category: 'deporte', src: fotoWindsurf2, alt: 'Yamila practicando windsurf en el agua', position: '50% 60%' },
   ],
 
   contact: {
