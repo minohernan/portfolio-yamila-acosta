@@ -1,0 +1,17 @@
+---
+import { whatsappUrl } from '../lib/whatsapp';
+import WhatsAppIcon from './ui/WhatsAppIcon.astro';
+---
+
+<a
+  id="whatsapp-float"
+  data-hidden
+  href={whatsappUrl()}
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Escribir por WhatsApp (se abre en una nueva pestaña)"
+  class="fixed right-4 bottom-4 z-40 inline-flex h-14 w-14 items-center justify-center rounded-full bg-sea-700 text-white shadow-soft ring-4 ring-white/70 transition duration-500 hover:scale-105 hover:bg-sea-600 data-[hidden]:pointer-events-none data-[hidden]:translate-y-24 data-[hidden]:opacity-0 sm:right-6 sm:bottom-6"
+>
+  <WhatsAppIcon class="h-7 w-7" />
+</a>
+<noscript><style>#whatsapp-float{opacity:1;transform:none;pointer-events:auto}</style></noscript>

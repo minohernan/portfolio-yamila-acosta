@@ -1,0 +1,123 @@
+---
+import { getImage } from 'astro:assets';
+import { profile } from '../data/profile';
+import { whatsappUrl } from '../lib/whatsapp';
+import { asset } from '../lib/paths';
+import WhatsAppIcon from './ui/WhatsAppIcon.astro';
+
+const { video, poster } = profile.hero;
+const posterImage = poster.src ? await getImage({ src: poster.src, width: 1920, format: 'webp' }) : null;
+const videoSrc = video ? asset(video) : '';
+---
+
+<section id="inicio" aria-labelledby="hero-title" class="relative isolate flex min-h-[100svh] items-center overflow-hidden">
+  <!-- Fondo de respaldo (siempre presente): degradado inspirado en mar y arena -->
+  <div
+    aria-hidden="true"
+    class="absolute inset-0 -z-30 bg-[radial-gradient(ellipse_at_80%_10%,#fff6e0_0%,transparent_45%),linear-gradient(170deg,var(--color-sea-300)_0%,var(--color-sea-500)_45%,var(--color-sea-700)_100%)]"
+  >
+  </div>
+
+  {
+    posterImage && (
+      <img
+        src={posterImage.src}
+        alt=""
+        aria-hidden="true"
+        width={posterImage.attributes.width}
+        height={posterImage.attributes.height}
+        fetchpriority="high"
+        decoding="async"
+        class="absolute inset-0 -z-20 h-full w-full object-cover"
+      />
+    )
+  }
+
+  {
+    videoSrc && (
+      <video
+        id="hero-video"
+        class="hero-video absolute inset-0 -z-20 h-full w-full object-cover"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        poster={posterImage?.src}
+        aria-hidden="true"
+        tabindex="-1"
+      >
+        <source src={videoSrc} type="video/mp4" />
+      </video>
+    )
+  }
+
+  <!-- Overlay para legibilidad -->
+  <div
+    aria-hidden="true"
+    class="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgb(13_43_58/0.45)_0%,rgb(13_43_58/0.25)_40%,rgb(13_43_58/0.55)_100%)]"
+  >
+  </div>
+
+  <div class="container-page relative pt-28 pb-32 sm:pt-32">
+    <div class="max-w-3xl text-white">
+      <p class="hero-in text-xs font-semibold tracking-[0.3em] text-sand-100 uppercase sm:text-sm">
+        {profile.location}
+      </p>
+      <h1 id="hero-title" class="hero-in mt-5 font-serif text-[2.6rem] leading-[1.05] font-semibold text-white sm:text-6xl lg:text-7xl" style="--d:80ms">
+        <span class="block uppercase">{profile.name}</span>
+        <span class="mt-3 block text-xl font-sans font-semibold tracking-[0.45em] text-sand-100 sm:text-2xl">
+          {profile.profession.toUpperCase()}
+        </span>
+      </h1>
+
+      <p class="hero-in mt-7 text-base font-medium text-white sm:text-lg" style="--d:160ms">
+        {profile.specialtiesShort.join(' · ')}
+      </p>
+
+      <p class="hero-in mt-4 inline-flex items-center gap-3 rounded-full bg-white/15 px-4 py-2 text-sm font-medium text-white ring-1 ring-white/30 backdrop-blur-sm" style="--d:220ms">
+        <span aria-hidden="true" class="h-2 w-2 rounded-full bg-coral-400"></span>
+        {profile.yearsLabel}
+      </p>
+
+      <p class="hero-in mt-8 max-w-xl font-serif text-xl leading-snug text-white italic sm:text-2xl" style="--d:280ms">
+        “{profile.tagline}”
+      </p>
+
+      <div class="hero-in mt-10 flex flex-col gap-3 sm:flex-row" style="--d:340ms">
+        <a href="#trayectoria" class="btn btn-ghost">Conocé mi trayectoria</a>
+        <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+          <WhatsAppIcon class="h-4 w-4" />
+          Contactarme por WhatsApp
+          <span class="sr-only">(se abre en una nueva pestaña)</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ola de transición hacia el contenido -->
+  <svg aria-hidden="true" class="absolute inset-x-0 bottom-0 h-12 w-full text-white sm:h-20" viewBox="0 0 1440 80" preserveAspectRatio="none">
+    <path fill="currentColor" d="M0 48c120-20 240-30 360-20s240 40 360 40 240-30 360-40 240 0 360 20v32H0z"></path>
+  </svg>
+</section>
+
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-in {
+      animation: hero-in 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+      animation-delay: var(--d, 0ms);
+    }
+  }
+  @keyframes hero-in {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+  }
+  /* Con movimiento reducido se muestra el poster en lugar del video */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-video {
+      display: none;
+    }
+  }
+</style>

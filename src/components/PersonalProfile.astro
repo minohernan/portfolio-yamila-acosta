@@ -1,0 +1,25 @@
+---
+import { profile } from '../data/profile';
+
+const { personal } = profile;
+---
+
+<section aria-labelledby="personal-title" class="section bg-white">
+  <div class="container-page text-center">
+    <h2 id="personal-title" class="sr-only">Perfil personal</h2>
+    <p class="reveal mx-auto max-w-3xl font-serif text-2xl leading-snug text-deep-900 italic sm:text-4xl">
+      “{personal.quote}”
+    </p>
+    <ul class="reveal mt-12 flex flex-wrap items-center justify-center gap-x-3 gap-y-4 sm:gap-x-6" aria-label="Lo que forma parte de mi vida">
+      {
+        personal.keywords.map((k, i) => (
+          <li class="flex items-center gap-3 sm:gap-6">
+            {i > 0 && <span aria-hidden="true" class="h-1.5 w-1.5 rounded-full bg-coral-500" />}
+            <span class="text-xs font-semibold tracking-[0.3em] text-sea-700 uppercase sm:text-sm">{k}</span>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="reveal mx-auto mt-8 max-w-2xl leading-relaxed text-deep-700">{personal.closing}</p>
+  </div>
+</section>

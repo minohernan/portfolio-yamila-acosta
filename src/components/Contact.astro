@@ -1,0 +1,58 @@
+---
+import { profile } from '../data/profile';
+import { whatsappUrl } from '../lib/whatsapp';
+import WhatsAppIcon from './ui/WhatsAppIcon.astro';
+
+const { contact } = profile;
+
+// Solo se muestran los medios que tienen un dato cargado (sin enlaces vacíos).
+const extra = [
+  contact.email && { label: 'Email', value: contact.email, href: `mailto:${contact.email}`, external: false },
+  contact.linkedin && { label: 'LinkedIn', value: 'Ver perfil', href: contact.linkedin, external: true },
+  contact.instagram && { label: 'Instagram', value: 'Ver perfil', href: contact.instagram, external: true },
+].filter((x): x is { label: string; value: string; href: string; external: boolean } => Boolean(x));
+---
+
+<section id="contacto" aria-labelledby="contact-title" class="section relative overflow-hidden">
+  <div
+    aria-hidden="true"
+    class="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_10%_0%,var(--color-sand-100)_0%,transparent_55%),radial-gradient(ellipse_at_90%_100%,var(--color-sea-100)_0%,transparent_55%)]"
+  >
+  </div>
+  <div class="container-page">
+    <div class="reveal card mx-auto max-w-3xl px-6 py-14 text-center sm:px-14 sm:py-16">
+      <p class="eyebrow">Contacto</p>
+      <h2 id="contact-title" class="mt-3 text-4xl sm:text-5xl">Hablemos</h2>
+      <p class="mx-auto mt-5 max-w-md text-lg text-deep-700">Para consultas profesionales o contacto.</p>
+
+      <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer" class="btn btn-primary mt-10 px-8 py-4 text-base">
+        <WhatsAppIcon class="h-5 w-5" />
+        Escribir por WhatsApp
+        <span class="sr-only">(se abre en una nueva pestaña)</span>
+      </a>
+      <p class="mt-4 text-sm text-deep-700">
+        WhatsApp: <span class="font-semibold text-deep-900">{contact.whatsappDisplay}</span>
+      </p>
+
+      {
+        extra.length > 0 && (
+          <ul class="mt-10 flex flex-wrap justify-center gap-3 border-t border-deep-900/10 pt-8">
+            {extra.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="btn btn-outline"
+                  {...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                >
+                  <span class="font-semibold">{item.label}</span>
+                  <span class="font-normal text-deep-700">{item.value}</span>
+                  {item.external && <span class="sr-only">(se abre en una nueva pestaña)</span>}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+  </div>
+</section>

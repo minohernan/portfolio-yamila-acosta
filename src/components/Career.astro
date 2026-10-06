@@ -1,0 +1,49 @@
+---
+import { profile } from '../data/profile';
+import SectionHeading from './ui/SectionHeading.astro';
+
+const { experience } = profile;
+// Solo se muestran las entradas y los campos con datos reales.
+const items = experience.items.filter((e) => e.institution || e.role || e.description);
+---
+
+<section id="trayectoria" aria-labelledby="career-title" class="section bg-gradient-to-b from-sea-50 to-white">
+  <div class="container-page grid gap-12 lg:grid-cols-[4fr_8fr] lg:gap-20">
+    <div class="lg:sticky lg:top-28 lg:self-start">
+      <SectionHeading id="career-title" eyebrow="Trayectoria" title="Trayectoria profesional" />
+      <div class="reveal card mt-10 p-7">
+        <p class="font-serif text-5xl font-semibold text-sea-700">+10</p>
+        <p class="mt-2 font-medium text-deep-800">años de trayectoria profesional</p>
+        <p class="mt-4 text-sm leading-relaxed text-deep-700">{experience.summary}</p>
+      </div>
+    </div>
+
+    <ol class="relative space-y-8 border-l-2 border-sea-200 pl-8 sm:pl-10">
+      {
+        items.map((e, i) => (
+          <li class="reveal relative" style={`--delay:${i * 90}ms`}>
+            <span
+              aria-hidden="true"
+              class:list={[
+                'absolute top-8 -left-[2.55rem] h-4 w-4 rounded-full ring-4 ring-white sm:-left-[3.05rem]',
+                e.current ? 'bg-coral-500' : 'bg-sea-400',
+              ]}
+            />
+            <article class="card p-7 sm:p-8">
+              {e.period && <p class="eyebrow">{e.period}</p>}
+              {e.role && <h3 class="mt-3 text-2xl">{e.role}</h3>}
+              {e.institution &&
+                (e.role ? (
+                  <p class="mt-1 font-medium text-deep-800">{e.institution}</p>
+                ) : (
+                  <h3 class="mt-3 text-2xl">{e.institution}</h3>
+                ))}
+              {e.place && <p class="mt-1 text-sm text-deep-700">{e.place}</p>}
+              {e.description && <p class="mt-4 leading-relaxed text-deep-700">{e.description}</p>}
+            </article>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

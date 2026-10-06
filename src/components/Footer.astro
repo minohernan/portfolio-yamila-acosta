@@ -1,0 +1,25 @@
+---
+import { profile } from '../data/profile';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-sea-100 bg-sea-50/60">
+  <div class="container-page flex flex-col items-center gap-3 py-10 text-center sm:flex-row sm:justify-between sm:text-left">
+    <div>
+      <p class="font-serif text-lg text-deep-900">{profile.name}</p>
+      <p class="text-sm text-deep-700">{profile.profession} · {profile.location}</p>
+    </div>
+    <p class="text-sm text-deep-700">© {year} {profile.name}</p>
+  </div>
+  <div class="container-page border-t border-sea-100 py-5">
+    <p class="flex flex-col items-center gap-1 text-center text-[0.7rem] leading-tight text-deep-700 sm:flex-row sm:justify-center sm:gap-2">
+      <span class="tracking-wide">Designed &amp; Developed by</span>
+      <span>
+        <span class="font-semibold tracking-[0.2em] text-deep-800">HERDELIX</span>
+        <span aria-hidden="true" class="mx-1 text-coral-700">·</span>
+        <span class="tracking-[0.15em] uppercase">S &amp; D Solutions</span>
+      </span>
+    </p>
+  </div>
+</footer>

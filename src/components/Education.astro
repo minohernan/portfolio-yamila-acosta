@@ -1,0 +1,25 @@
+---
+import { profile } from '../data/profile';
+import SectionHeading from './ui/SectionHeading.astro';
+---
+
+<section aria-labelledby="education-title" class="section pt-4 sm:pt-8">
+  <div class="container-page">
+    <SectionHeading id="education-title" eyebrow="Formación" title="Formación académica" />
+    <ul class="mt-12 grid gap-5 md:grid-cols-3">
+      {
+        profile.education.map((ed, i) => (
+          <li class="reveal flex gap-5 rounded-3xl bg-sand-50 p-7 ring-1 ring-sand-200" style={`--delay:${i * 90}ms`}>
+            <span aria-hidden="true" class="mt-2 h-3 w-3 shrink-0 rotate-45 rounded-sm bg-coral-500" />
+            <div>
+              <h3 class="text-xl font-semibold">{ed.title}</h3>
+              {(ed.institution || ed.year) && (
+                <p class="mt-2 text-sm text-deep-700">{[ed.institution, ed.year].filter(Boolean).join(' · ')}</p>
+              )}
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import LegalValues from '../components/LegalValues.astro';
+import Specialties from '../components/Specialties.astro';
+import Career from '../components/Career.astro';
+import Education from '../components/Education.astro';
+import Lifestyle from '../components/Lifestyle.astro';
+import PersonalProfile from '../components/PersonalProfile.astro';
+import Gallery from '../components/Gallery.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+---
+
+<BaseLayout>
+  <Header />
+  <main id="contenido">
+    <Hero />
+    <About />
+    <Career />
+    <Education />
+    <LegalValues />
+    <Specialties />
+    <Lifestyle />
+    <PersonalProfile />
+    <Gallery />
+    <Contact />
+  </main>
+  <Footer />
+  <WhatsAppButton />
+</BaseLayout>
+
+<script>
+  import '../scripts/ui.ts';
+</script>

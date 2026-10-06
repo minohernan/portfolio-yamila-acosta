@@ -1,0 +1,47 @@
+---
+import { profile } from '../data/profile';
+import { isPhotoVisible } from '../lib/paths';
+import Photo from './ui/Photo.astro';
+import SectionHeading from './ui/SectionHeading.astro';
+
+const { about } = profile;
+const hasPhoto = isPhotoVisible(about.photo);
+---
+
+<section id="sobre-mi" aria-labelledby="about-title" class="section">
+  <div class:list={['container-page grid items-center gap-12 lg:gap-20', hasPhoto && 'lg:grid-cols-[5fr_7fr]']}>
+    {
+      hasPhoto && (
+        <div class="reveal relative mx-auto w-full max-w-md lg:max-w-none">
+          <div aria-hidden="true" class="absolute -top-5 -left-5 h-2/3 w-2/3 rounded-[2rem] bg-sand-100" />
+          <div class="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-soft">
+            <Photo photo={about.photo} sizes="(min-width: 1024px) 40vw, 90vw" />
+          </div>
+          <div aria-hidden="true" class="absolute -right-4 -bottom-4 h-24 w-24 rounded-full bg-sea-200/70" />
+        </div>
+      )
+    }
+
+    <div>
+      <SectionHeading id="about-title" eyebrow="Sobre mí" title="Derecho con preparación, ética y cercanía" />
+      <p class="reveal mt-8 font-serif text-xl leading-relaxed text-deep-900 sm:text-2xl">{about.intro}</p>
+      {about.paragraphs.map((p) => <p class="reveal mt-5 leading-relaxed text-deep-700">{p}</p>)}
+      <blockquote class="reveal mt-8 rounded-2xl border-l-4 border-sea-400 bg-sea-50 px-6 py-5 leading-relaxed text-deep-800">
+        {about.service}
+      </blockquote>
+    </div>
+  </div>
+
+  <div class="container-page mt-16">
+    <dl class="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      {
+        about.highlights.map((h, i) => (
+          <div class="reveal card flex flex-col-reverse p-6 transition duration-300 hover:-translate-y-1 sm:p-7" style={`--delay:${i * 80}ms`}>
+            <dt class="mt-2 text-sm leading-snug text-deep-700">{h.label}</dt>
+            <dd class="font-serif text-2xl font-semibold text-sea-700 sm:text-3xl">{h.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>

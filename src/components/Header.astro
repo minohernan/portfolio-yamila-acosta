@@ -1,0 +1,89 @@
+---
+import { profile } from '../data/profile';
+import { whatsappUrl } from '../lib/whatsapp';
+import WhatsAppIcon from './ui/WhatsAppIcon.astro';
+
+const nav = [
+  { href: '#inicio', label: 'Inicio' },
+  { href: '#sobre-mi', label: 'Sobre mí' },
+  { href: '#trayectoria', label: 'Trayectoria' },
+  { href: '#especialidades', label: 'Especialidades' },
+  { href: '#mas-sobre-mi', label: 'Más sobre mí' },
+  { href: '#contacto', label: 'Contacto' },
+];
+---
+
+<header
+  id="site-header"
+  class="group fixed inset-x-0 top-0 z-50 transition-colors duration-300 data-[solid]:bg-white/85 data-[solid]:shadow-softer data-[solid]:backdrop-blur-md"
+>
+  <div class="container-page flex h-16 items-center justify-between gap-4 lg:h-20">
+    <a href="#inicio" class="leading-tight" aria-label={`${profile.name}, ${profile.profession} — ir al inicio`}>
+      <span class="block font-serif text-lg text-white transition-colors group-data-[solid]:text-deep-900 sm:text-xl">
+        {profile.name}
+      </span>
+      <span class="block text-[0.7rem] font-semibold tracking-[0.25em] text-sea-100 uppercase transition-colors group-data-[solid]:text-sea-700">
+        {profile.profession}
+      </span>
+    </a>
+
+    <nav aria-label="Principal" class="hidden lg:block">
+      <ul class="flex items-center gap-1">
+        {
+          nav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="rounded-full px-3 py-2 text-sm font-medium text-white/90 transition hover:bg-white/15 hover:text-white group-data-[solid]:text-deep-800 group-data-[solid]:hover:bg-sea-50 group-data-[solid]:hover:text-sea-700"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+        <li class="ml-2">
+          <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer" class="btn btn-primary py-2.5">
+            <WhatsAppIcon class="h-4 w-4" />
+            WhatsApp
+            <span class="sr-only">(se abre en una nueva pestaña)</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <button
+      id="menu-toggle"
+      type="button"
+      class="inline-flex h-11 w-11 items-center justify-center rounded-full text-white transition hover:bg-white/15 group-data-[solid]:text-deep-900 group-data-[solid]:hover:bg-sea-50 lg:hidden"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Abrir menú"
+    >
+      <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+        <path class="menu-open" d="M4 7h16M4 12h16M4 17h16"></path>
+        <path class="menu-close hidden" d="M6 6l12 12M18 6L6 18"></path>
+      </svg>
+    </button>
+  </div>
+
+  <div id="mobile-menu" class="hidden border-t border-deep-900/5 bg-white shadow-soft lg:hidden">
+    <nav aria-label="Principal (móvil)" class="container-page py-4">
+      <ul class="flex flex-col">
+        {
+          nav.map((item) => (
+            <li>
+              <a href={item.href} class="block rounded-xl px-3 py-3 text-base font-medium text-deep-800 hover:bg-sea-50 hover:text-sea-700">
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer" class="btn btn-primary mt-4 w-full">
+        <WhatsAppIcon class="h-4 w-4" />
+        Escribir por WhatsApp
+        <span class="sr-only">(se abre en una nueva pestaña)</span>
+      </a>
+    </nav>
+  </div>
+</header>

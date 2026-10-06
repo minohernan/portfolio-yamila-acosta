@@ -1,0 +1,31 @@
+---
+import { Image } from 'astro:assets';
+import type { Photo } from '../../types/profile';
+import { showPlaceholders } from '../../lib/paths';
+import Placeholder from './Placeholder.astro';
+
+type Props = {
+  photo: Photo;
+  class?: string;
+  sizes?: string;
+  widths?: number[];
+  loading?: 'lazy' | 'eager';
+};
+const { photo, class: className, sizes = '(min-width: 1024px) 50vw, 100vw', widths = [400, 800, 1200], loading = 'lazy' } = Astro.props;
+---
+
+{
+  photo.src ? (
+    <Image
+      src={photo.src}
+      alt={photo.alt}
+      widths={widths}
+      sizes={sizes}
+      loading={loading}
+      decoding="async"
+      class:list={['h-full w-full object-cover', className]}
+    />
+  ) : (
+    showPlaceholders && <Placeholder label={photo.placeholder} class={className} />
+  )
+}

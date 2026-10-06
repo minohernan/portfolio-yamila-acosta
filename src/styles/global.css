@@ -1,0 +1,111 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-sea-50: #effcfb;
+  --color-sea-100: #d5f5f3;
+  --color-sea-200: #aeeae8;
+  --color-sea-300: #77d8d7;
+  --color-sea-400: #3dbcbf;
+  --color-sea-500: #1fa0a5;
+  --color-sea-600: #17808a;
+  --color-sea-700: #176770;
+  --color-deep-700: #164a5c;
+  --color-deep-800: #12394a;
+  --color-deep-900: #0d2b3a;
+  --color-sand-50: #fdfaf4;
+  --color-sand-100: #f8f1e4;
+  --color-sand-200: #efe2c9;
+  --color-coral-400: #f2876f;
+  --color-coral-500: #e86c51;
+  --color-coral-600: #c4502f;
+  --color-coral-700: #a8432a;
+
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+
+  --shadow-soft: 0 10px 30px -12px rgb(13 43 58 / 0.14);
+  --shadow-softer: 0 4px 16px -8px rgb(13 43 58 / 0.12);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-white font-sans text-deep-800 antialiased;
+    overflow-x: clip;
+  }
+  h1, h2, h3 {
+    @apply font-serif text-deep-900;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-coral-500);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  ::selection {
+    @apply bg-sea-200 text-deep-900;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+  .section {
+    @apply py-20 sm:py-28;
+  }
+  .eyebrow {
+    @apply text-xs font-semibold tracking-[0.2em] text-sea-700 uppercase;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition duration-300 ease-out;
+  }
+  .btn-primary {
+    @apply bg-coral-600 text-white shadow-softer hover:-translate-y-0.5 hover:bg-coral-700;
+  }
+  .btn-ghost {
+    @apply border border-white/70 bg-white/10 text-white backdrop-blur-sm hover:-translate-y-0.5 hover:bg-white/20;
+  }
+  .btn-outline {
+    @apply border border-deep-800/20 text-deep-800 hover:-translate-y-0.5 hover:border-sea-600 hover:text-sea-700;
+  }
+  .card {
+    @apply rounded-3xl bg-white shadow-soft ring-1 ring-deep-900/5;
+  }
+}
+
+/* Aparición suave al hacer scroll (solo si hay JS y no se pidió reducir movimiento) */
+@media (prefers-reduced-motion: no-preference) {
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.8s ease,
+      transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+    transition-delay: var(--delay, 0ms);
+  }
+  .js .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
